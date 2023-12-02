@@ -1,18 +1,19 @@
 const route = require("express").Router();
-const { dataBaseName } = require("../config/dataBaseConnection");
-const productCollection = dataBaseName.collection("Products");
-const cartCollection = dataBaseName.collection("Cart");
+// const { dataBaseName } = require("../config/dataBaseConnection");
+// const productCollection = dataBaseName.collection("Products");
+// const cartCollection = dataBaseName.collection("Cart");
 const productData = require("../Data/Product")
+const productCollection = require("../model/productModel")
 
 
 route.get("/", async (request, response) => {
-    const allProduct = await productCollection.find().toArray();
+    const allProduct = await productCollection.find();
     return response.send(allProduct);
 });
 
 route.get("/product/:id", async (request, response) => {
     const productID = request.params.id;
-    const filteredData = await productCollection.find({ id: { $eq: Number(productID) } }).toArray();
+    const filteredData = await productCollection.find({ id: { $eq: Number(productID) } });
     return response.send(filteredData)
 });
 

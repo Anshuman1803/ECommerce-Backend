@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const dotENV = require("dotenv");
 const JWT = require("jsonwebtoken");
-const { dataBaseName } = require("../config/dataBaseConnection");
-const registredUserCollection = dataBaseName.collection("RegistredUser");
+// const { dataBaseName } = require("../config/dataBaseConnection");
+// const registredUserCollection = dataBaseName.collection("RegistredUser");
 dotENV.config();
 const KEY = process.env.secretKey;
 const saltRound = 10

@@ -1,18 +1,23 @@
-const { MongoClient } = require("mongodb");
-const mongoDBURL = "mongodb://127.0.0.1:27017";
 
-const mongoServer = new MongoClient(mongoDBURL);
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", true)
+const donENV = require("dotenv");
+donENV.config();
+
+const userName = process.env.mongooseUser;
+const userPass = process.env.mongoosePass;
+
+const mongoCloudURL =`mongodb+srv://${userName}:${userPass}@cluster0.48mqrke.mongodb.net/E-Commerce?retryWrites=true&w=majority`
 
 
 const dbConnection = async () => {
     try {
-        await mongoServer.connect();
-        console.log("CONNECTED SUCCESSFULLY....");
-
+        await mongoose.connect(mongoCloudURL);
+        console.log("CONNECTED SUCCESSFULLY");
     } catch (err) {
-        console.log(`Something went wrong in mongo Connection: ${err}`)
+        console.log(`Something went wrong in the mongo Connection : ${err}`);
     }
 }
 
-const dataBaseName = mongoServer.db("E-Commerce");
-module.exports = {dbConnection, dataBaseName}
+
+module.exports = {dbConnection}
