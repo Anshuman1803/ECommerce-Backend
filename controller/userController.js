@@ -25,7 +25,7 @@ const userRegister = async (request, response) => {
         // saving new user in database
         const registredResult = await userCollection.create(tempUser);
 
-        if (registredResult.acknowledged) {
+        if (registredResult) {
             // generating JWT token for every new user who try to registred with our website
             const generatedToken = JWT.sign({ "USER": tempUser.userEmail }, KEY);
 
