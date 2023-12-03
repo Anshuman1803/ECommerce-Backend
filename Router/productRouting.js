@@ -1,7 +1,4 @@
 const route = require("express").Router();
-// const { dataBaseName } = require("../config/dataBaseConnection");
-// const productCollection = dataBaseName.collection("Products");
-// const cartCollection = dataBaseName.collection("Cart");
 const productData = require("../Data/Product")
 const productCollection = require("../model/productModel")
 
@@ -26,15 +23,4 @@ route.get("/search/:searchedBy", async (request, response) => {
     return response.send(filtereCategorydata);
 
 });
-
-
-route.post("/Usercart", async (request, response) => {
-    console.log(request.body);
-    console.log("DATA")
-    const data = await cartCollection.insertOne(request.body);
-    response.send(data);
-});
-
-
-
 module.exports = route
