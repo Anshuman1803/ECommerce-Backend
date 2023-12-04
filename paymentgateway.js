@@ -95,11 +95,7 @@ app.post("/api/orders", async (req, res) => {
 });
   
 
-// // serve index.html
-// app.get("/", (req, res) => {
-//   res.sendFile(path.resolve("./client/checkout.html"));
-// });
-  
+
 app.listen(PORT, () => {
   console.log(`Node server listening at http://localhost:${PORT}/`);
 });
