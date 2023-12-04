@@ -50,13 +50,7 @@ const generateAccessToken = async () => {
 };
 
 
-const createOrder = async (cart) => {
-  // use the cart information passed from the front-end to calculate the purchase unit details
-  console.log(
-    "shopping cart information passed from the frontend createOrder() callback:",
-    cart,
-  );
-  
+const createOrder = async ({cart, cartTotalAmount}) => {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
   const payload = {
@@ -66,7 +60,7 @@ const createOrder = async (cart) => {
         amount: {
             // this ammound will be changed
           currency_code: "USD",
-          value: "100.00",
+          value: cartTotalAmount,
         },
       },
     ],
@@ -101,9 +95,8 @@ async function handleResponse(response) {
   
 appServer.post("/api/orders", async (req, res) => {
   try {
-    // use the cart information passed from the front-end to calculate the order amount detals
-    const { cart } = req.body;
-    const { jsonResponse, httpStatusCode } = await createOrder(cart);
+    const { cart, cartTotalAmount } = req.body;
+    const { jsonResponse, httpStatusCode } = await createOrder({cart, cartTotalAmount});
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
     console.error("Failed to create order:", error);
